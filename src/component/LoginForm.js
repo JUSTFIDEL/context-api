@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { userContext } from '../context/userContext'
 
 function LoginForm() {
 	const {
@@ -8,15 +9,18 @@ function LoginForm() {
 		formState: { errors },
 	} = useForm()
 	const [userInfo, setUserInfo] = useState()
+	const { logIn } = useContext(userContext)
 
 	const onSubmit = data => {
+		logIn(data.Username)
 		setUserInfo(data)
 		console.log(data)
 	}
 
 	return (
-		<div className='container'>
+		<div className='login'>
 			<pre>{JSON.stringify(userInfo, undefined, 2)}</pre>
+
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<h1>Login</h1>
 				<div className='ui divider'></div>
@@ -28,14 +32,14 @@ function LoginForm() {
 							// name='username'
 							placeholder='Username'
 							{...register('Username', {
-								required: 'Username is required',
+								required: '⚠︎ Username is required',
 								minLength: {
 									value: 5,
-									message: 'not less than 5 characters',
+									message: '⚠︎ not less than 5 characters',
 								},
 								maxLength: {
 									value: 20,
-									message: 'not more than 20 characters',
+									message: '⚠︎ not more than 20 characters',
 								},
 							})}
 						/>
@@ -50,7 +54,7 @@ function LoginForm() {
 							name='email'
 							placeholder='Email'
 							{...register('Email', {
-								required: 'Email Address is required',
+								required: '⚠︎ Email Address is required',
 								// pattern: {
 								// 	value: /^[A-Za-z]+$/i,
 								// 	message: 'This is not a valid email',
@@ -75,16 +79,16 @@ function LoginForm() {
 							name='password'
 							placeholder='Password'
 							{...register('Password', {
-								required: 'Password is required',
+								required: '⚠︎ Password is required',
 								minLength: {
 									value: 7,
 									message:
-										'Password must be more than 6 characters',
+										'⚠︎ Password must be more than 6 characters',
 								},
 								maxLength: {
 									value: 20,
 									message:
-										'Password must not be more than 20 characters',
+										'⚠︎ Password must not be more than 20 characters',
 								},
 							})}
 						/>

@@ -1,14 +1,15 @@
 import Auth from './component/Auth'
 import Header from './component/Header'
-import LoginForm from './component/LoginForm'
+import UserContextProvider from './context/userContext'
 
 function App() {
 	return (
-		<div className='container'>
-			{/* <Header /> */}
-			{/* <Auth /> */}
-			<LoginForm />
-		</div>
+		<UserContextProvider>
+			<div className='ui container'>
+				<Header />
+				<Auth />
+			</div>
+		</UserContextProvider>
 	)
 }
 
